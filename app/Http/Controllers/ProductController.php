@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
-use Hardevine\ShoppingCart\Facades\Cart;
 use Illuminate\Http\Request;
+use Cart;
 
 class ProductController extends Controller
 {
