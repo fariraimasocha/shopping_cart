@@ -1,49 +1,55 @@
 <x-layout>
-    <div class="container mx-auto mt-8">
-        <h1 class="text-2xl font-bold mb-4">Shopping Cart</h1>
+    <div class="px-4 py-8 mx-auto space-y-4 md:px-20 md:mt-20 md:space-y-8 lg:px-40">
+        <div class="container mx-auto border-2 border-black px-5 py-5 rounded-l">
+            <h1 class="text-2xl font-bold mb-4">Shopping Cart</h1>
 
-        @if (session('success'))
-            <div class="bg-green-200 text-green-800 px-4 py-2 mb-4">
-                {{ session('success') }}
-            </div>
-        @endif
+            @if (session('success'))
+                <div class="bg-green-200 text-green-800 px-4 py-2 mb-4">
+                    {{ session('success') }}
+                </div>
+            @endif
 
-        <table class="w-full border border-gray-200">
-            <thead>
-            <tr>
-                <th class="border-b border-gray-200">Name</th>
-                <th class="border-b border-gray-200">Quantity</th>
-                <th class="border-b border-gray-200">Price</th>
-                <th class="border-b border-gray-200">Total</th>
-                <th class="border-b border-gray-200"></th>
-            </tr>
-            </thead>
-            <tbody>
-            @foreach ($cartItems as $item)
+            <table class="w-full table-auto border-2 border-black">
+                <thead>
                 <tr>
-                    <td class="border-b border-gray-200">{{ $item->name }}</td>
-                    <td class="border-b border-gray-200">
-                        <form action="{{ route('update.cart') }}" method="POST">
-                            @csrf
-                            @method('PATCH')
-                            <input type="hidden" name="rowId" value="{{ $item->rowId }}">
-                            <input type="number" name="quantity" value="{{ $item->qty }}" min="1" class="w-16">
-                            <button type="submit" class="ml-2">Update</button>
-                        </form>
-                    </td>
-                    <td class="border-b border-gray-200">{{ $item->price }}</td>
-                    <td class="border-b border-gray-200">{{ $item->subtotal }}</td>
-                    <td class="border-b border-gray-200">
-                        <form action="{{ route('delete.cart.product') }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <input type="hidden" name="rowId" value="{{ $item->rowId }}">
-                            <button type="submit">Remove</button>
-                        </form>
-                    </td>
+                    <th class="border-b border-gray-black px-4 py-2">Name</th>
+                    <th class="border-b border-gray-black px-4 py-2">Quantity</th>
+                    <th class="border-b border-gray-black px-4 py-2">Price</th>
+                    <th class="border-b border-gray-black px-4 py-2">Total</th>
+                    <th class="border-b border-gray-black px-4 py-2">Action</th>
                 </tr>
-            @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                @foreach ($cartItems as $item)
+                    <tr>
+                        <td class="border-b border-gray-200 px-4 py-2 text-center">{{ $item->name }}</td>
+                        <td class="border-b border-gray-200 px-4 py-2 text-center">
+                            <form action="{{ route('update.cart') }}" method="POST">
+                                @csrf
+                                @method('PATCH')
+                                <input type="hidden" name="rowId" value="{{ $item->rowId }}">
+                                <input type="number" name="quantity" value="{{ $item->qty }}" min="1" class="w-16">
+                                <button type="submit" class="ml-2">Update</button>
+                            </form>
+                        </td>
+                        <td class="border-b border-gray-200 px-4 py-2 text-center">{{ $item->price }}</td>
+                        <td class="border-b border-gray-200 px-4 py-2 text-center">{{ $item->subtotal }}</td>
+                        <td class="border-b border-gray-200 px-4 py-2 text-center">
+                            <form action="{{ route('delete.cart.product') }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <input type="hidden" name="rowId" value="{{ $item->rowId }}">
+                                <button type="submit" class="bg-red-700 text-white rounded px-2 py-1">Remove</button>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+
+
+
+            <button type="submit" class="bg-black hover:bg-gray-900 text-white rounded px-1 py-1 mt-8">Checkout</button>
+        </div>
     </div>
 </x-layout>
