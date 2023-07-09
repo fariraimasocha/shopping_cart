@@ -18,6 +18,14 @@ Route::middleware(['splade'])->group(function () {
     Route::get('/', fn () => view('home'))->name('home');
     Route::resource('/products', ProductController::class);
 
+    Route::get('/dashboard', [ProductController::class, 'index']);
+
+
+    Route::get('/shopping-cart', [ProductController::class, 'productCart'])->name('shopping.cart');
+    Route::get('/add-to-cart/{id}', [ProductController::class, 'addProducttoCart'])->name('addProduct.to.cart');
+    Route::patch('/update-cart', [ProductController::class, 'updateCart'])->name('update.cart');
+    Route::delete('/remove-from-cart', [ProductController::class, 'deleteProduct'])->name('delete.cart.product');
+
     // Registers routes to support the interactive components...
     Route::spladeWithVueBridge();
 

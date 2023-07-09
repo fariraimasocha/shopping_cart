@@ -3,65 +3,42 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
-use App\Http\Requests\StoreProductRequest;
-use App\Http\Requests\UpdateProductRequest;
+use Hardevine\ShoppingCart\Facades\Cart;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $products = Product::all();
-        return view('products.index',compact('products'));
+        return view('products.index', compact('products'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function productCart()
     {
-        //
+        $cartItems = Cart::content();
+        return view('cart', compact('cartItems'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreProductRequest $request)
+    public function addProducttoCart($id)
     {
-        //
+        $product = Product::findOrFail($id);
+        Cart::add($product->id, $product->name, 1, $product->price, ['description' => $product->description]);
+        return redirect()->route('shopping.cart')->with('success', 'Product has been added to the cart!');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Product $product)
+    public function updateCart(Request $request)
     {
-        //
+        $rowId = $request->rowId;
+        $quantity = $request->quantity;
+        Cart::update($rowId, $quantity);
+        return redirect()->route('shopping.cart')->with('success', 'Cart has been updated successfully!');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Product $product)
+    public function deleteProduct(Request $request)
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateProductRequest $request, Product $product)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Product $product)
-    {
-        //
+        $rowId = $request->rowId;
+        Cart::remove($rowId);
+        return redirect()->route('shopping.cart')->with('success', 'Product has been removed from the cart!');
     }
 }
