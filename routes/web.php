@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartCountController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,6 +26,8 @@ Route::middleware(['splade'])->group(function () {
     Route::get('/add-to-cart/{id}', [ProductController::class, 'addProducttoCart'])->name('addProduct.to.cart');
     Route::patch('/update-cart', [ProductController::class, 'updateCart'])->name('update.cart');
     Route::delete('/remove-from-cart', [ProductController::class, 'deleteProduct'])->name('delete.cart.product');
+    Route::get('/cart-count', [CartCountController::class, 'index'])->name('cart.count');
+
 
     // Registers routes to support the interactive components...
     Route::spladeWithVueBridge();

@@ -16,8 +16,10 @@ class ProductController extends Controller
 
     public function productCart()
     {
+
         $cartItems = Cart::content();
-        return view('cart', compact('cartItems'));
+        $totalItems = $cartItems->sum('qty');
+        return view('cart', compact('cartItems','totalItems'));
     }
 
     public function addProducttoCart($id)

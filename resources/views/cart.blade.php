@@ -1,6 +1,6 @@
 <x-layout>
     <div class="px-4 py-8 mx-auto space-y-4 md:px-20 md:mt-20 md:space-y-8 lg:px-40">
-        <div class="container mx-auto border-2 border-black px-5 py-5 rounded-l">
+        <div class="container mx-auto px-5 py-5 rounded">
             <h1 class="text-2xl font-bold mb-4">Shopping Cart</h1>
 
             @if (session('success'))
@@ -9,14 +9,14 @@
                 </div>
             @endif
 
-            <table class="w-full table-auto border-2 border-black">
+            <table class="w-full table-auto border-gray-400 border rounded">
                 <thead>
                 <tr>
-                    <th class="border-b border-gray-black px-4 py-2">Name</th>
-                    <th class="border-b border-gray-black px-4 py-2">Quantity</th>
-                    <th class="border-b border-gray-black px-4 py-2">Price</th>
-                    <th class="border-b border-gray-black px-4 py-2">Total</th>
-                    <th class="border-b border-gray-black px-4 py-2">Action</th>
+                    <th class="border-b border-gray-400 px-4 py-2">Name</th>
+                    <th class="border-b border-gray-400 px-4 py-2">Quantity</th>
+                    <th class="border-b border-gray-400 px-4 py-2">Price</th>
+                    <th class="border-b border-gray-400 px-4 py-2">Total</th>
+                    <th class="border-b border-gray-400 px-4 py-2">Action</th>
                 </tr>
                 </thead>
                 <tbody>
